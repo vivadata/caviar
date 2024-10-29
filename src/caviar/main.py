@@ -2,24 +2,23 @@ import click
 import nbformat
 import os
 from caviar.cell import update_content
+from caviar.params import STARTING_TAG, ENDING_TAG, SOURCE, TARGET
 
 
 # SOURCE="."
 # TARGET="../student-challenge-default"
 
 @click.command()
-@click.option('--source', default=None, help='Source directory')
-@click.option('--target', default=None, help='Target directory')
+@click.option('--source', default=SOURCE, help='Source directory')
+@click.option('--target', default=TARGET, help='Target directory')
 @click.option('--starting-tag', default=STARTING_TAG, help='Starting tag')
 @click.option('--ending-tag', default=ENDING_TAG, help='Ending tag')
 def caviar(source, target, starting_tag, ending_tag):
     # Turning source and target into absolute paths to avoid issues
-    if source == None : 
-        from  caviar.params import SOURCE
-        source = SOURCE
-    if target == None :
-        from  caviar.params import TARGET
-        target = TARGET
+    if not target: 
+        raise ValueError('TARGET environment variable not set or passed as argument')
+    if not source:
+        raise ValueError('SOURCE environment variable not set or passed as argument')
     source = os.path.abspath(source)
     target = os.path.abspath(target)
     
