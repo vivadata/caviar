@@ -1,0 +1,25 @@
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "caviar"
+version = "0.1.0"
+description = "Remove code inside tag from exercices in python notebook and .py files"
+authors = [{ name = "Aloys Bernard", email = "aloys.bernard@gmail.com" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.6"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[project.urls]
+homepage = "https://your.project.homepage"
+repository = "https://github.com/yourusername/yourproject"
+
+# Create a command-line interface with setuptools
+[project.scripts]
+caviar = "caviar.main:caviar"
