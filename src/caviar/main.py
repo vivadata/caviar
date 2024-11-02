@@ -34,7 +34,6 @@ def caviar(source, target, starting_tag, ending_tag):
             # For our purpose we want to caviar only file in a "01-Challenges/src/{file}" directory
             # This behavior could be changed to update to user needs
             if (not "01-Challenges" in root) and not ("src" in root):
-                click.echo(("FILE: ",root,file))
                 if file=="README.md":
                     #click.echo(f'👀 Found file {file} in {root}')
                     # Copying the file to the target directory
@@ -63,6 +62,7 @@ def caviar(source, target, starting_tag, ending_tag):
                 for cell in original_nb.cells:
                     if cell.cell_type == "code":
                         cell.source = update_content(cell.source,starting_tag="STRIP_START",ending_tag="STRIP_END")
+                        cell.outputs = [] # Clearing outputs
                         caviarded_cells.append(cell)
                     else:
                         caviarded_cells.append(cell)
@@ -73,7 +73,7 @@ def caviar(source, target, starting_tag, ending_tag):
                 #                                      , nbformat=original_nb.nbformat)
                 output_nb = original_nb.copy()
                 output_nb.cells = caviarded_cells
-                print(nbformat.validate(output_nb))
+                nbformat.validate(output_nb)
                 
                 with open(output_path, "w") as fp:
                     nbformat.write(output_nb, fp)
@@ -94,8 +94,8 @@ def caviar(source, target, starting_tag, ending_tag):
                 with open(output_path, "w") as fp:
                     fp.write(caviarded_md)
                     
-            # else:
-            #     os.system(f'cp {os.path.join(root,file)} {output_path}')
+            else:
+                os.system(f'cp {os.path.join(root,file)} {output_path}')
             
                     
             
