@@ -33,7 +33,7 @@ def caviar(source, target, starting_tag, ending_tag):
             
             # For our purpose we want to caviar only file in a "01-Challenges/src/{file}" directory
             # This behavior could be changed to update to user needs
-            if (not "01-Challenges" in root) and not ("src" in root):
+            if (not "01-Challenges" in root) :
                 if file=="README.md":
                     #click.echo(f'👀 Found file {file} in {root}')
                     # Copying the file to the target directory
