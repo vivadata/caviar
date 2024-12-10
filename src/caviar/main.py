@@ -64,6 +64,9 @@ def caviar(source, target, starting_tag, ending_tag):
                         cell.source = update_content(cell.source,starting_tag="STRIP_START",ending_tag="STRIP_END")
                         cell.outputs = [] # Clearing outputs
                         caviarded_cells.append(cell)
+                    elif cell.cell_type == "markdown":
+                        cell.source = update_content(cell.source,starting_tag="STRIP_START",ending_tag="STRIP_END")
+                        caviarded_cells.append(cell)
                     else:
                         caviarded_cells.append(cell)
                 
