@@ -26,11 +26,17 @@ def caviar(source, target, starting_tag, ending_tag):
     click.echo(f'   Using starting tag {starting_tag} and ending tag {ending_tag}')
     click.echo(os.environ.get('SOURCE'))
     if not os.path.exists(target):
-        click.echo(f' Source directory {os.path.abspath(target)} does not exist, if this was intented you need to create it')
+        click.echo(f' Target directory {os.path.abspath(target)} does not exist, if this was intented, it will be created')
     # Scanning the source directory for ".py" and ".ipynb" files
     for root, dirs, files in os.walk(source):
         for file in files:
             
+            # Copy directory structure to target
+            target_dir = root.replace(source, target)
+            if not os.path.exists(target_dir):
+                os.makedirs(target_dir)
+            output_path = os.path.join(root.replace(source,target), file).replace("01-Challenges/src/","")
+                
             # For our purpose we want to caviar only file in a "01-Challenges/src/{file}" directory
             # This behavior could be changed to update to user needs
             if (not "01-Challenges" in root) :
@@ -45,14 +51,7 @@ def caviar(source, target, starting_tag, ending_tag):
                         fp.write(caviarded_md)
                 continue
             
-            # Copy directory structure to target
-            target_dir = root.replace(source, target)
-            if not os.path.exists(target_dir):
-                os.makedirs(target_dir)
-            
-            output_path = os.path.join(root.replace(source,target), file).replace("01-Challenges/src/","")
-            
-            if  file.endswith('.ipynb'):
+            elif  file.endswith('.ipynb'):
                 #click.echo(f'👀 Found file {file} in {root}')
                 #click.echo(f' {search_files(os.path.join(root, file), ".ipynb", starting_tag, ending_tag)}')
                 with open(os.path.join(root, file)) as fp:
