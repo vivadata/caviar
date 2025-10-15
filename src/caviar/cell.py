@@ -17,6 +17,6 @@ def update_content(content:str
         if (ending_tag in line):
             queue.append(line)
             inside = False
-    if inside:
-        raise ValueError("The ending tag was not found")
+    # If we're still inside a tag block at the end (no matching END tag found),
+    # return the content up to the start of the unclosed tag block
     return '\n'.join(output)
