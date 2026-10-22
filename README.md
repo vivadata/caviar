@@ -1,10 +1,10 @@
 # Caviar
 
-A command-line tool to remove code sections marked with tags from Python files and Jupyter notebooks.
+A command-line tool to remove code sections marked with tags from Python files, R scripts and Jupyter notebooks.
 
 ## Description
 
-Caviar processes Python files (`.py`) and Jupyter notebooks (`.ipynb`) to remove code sections enclosed between configurable start and end tags. This is particularly useful for creating clean exercise templates by removing solution code.
+Caviar processes Python files (`.py`), R scripts (`.R`) and Jupyter notebooks (`.ipynb`) to remove code sections enclosed between configurable start and end tags. This is particularly useful for creating clean exercise templates by removing solution code.
 
 ## Installation
 
@@ -61,6 +61,7 @@ print("This will also be kept")
 ## Features
 
 - ✅ Processes Python files (`.py`)
+- ✅ Processes R scripts (`.R` / `.r`)
 - ✅ Processes Jupyter notebooks (`.ipynb`)
 - ✅ Processes Markdown files (`.md`)
 - ✅ Preserves directory structure

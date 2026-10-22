@@ -60,11 +60,11 @@ def caviar(source, target, starting_tag, ending_tag):
                 caviarded_cells = []
                 for cell in original_nb.cells:
                     if cell.cell_type == "code":
-                        cell.source = update_content(cell.source,starting_tag="STRIP_START",ending_tag="STRIP_END")
+                        cell.source = update_content(cell.source,starting_tag=starting_tag,ending_tag=ending_tag)
                         cell.outputs = [] # Clearing outputs
                         caviarded_cells.append(cell)
                     elif cell.cell_type == "markdown":
-                        cell.source = update_content(cell.source,starting_tag="STRIP_START",ending_tag="STRIP_END")
+                        cell.source = update_content(cell.source,starting_tag=starting_tag,ending_tag=ending_tag)
                         caviarded_cells.append(cell)
                     else:
                         caviarded_cells.append(cell)
@@ -80,13 +80,14 @@ def caviar(source, target, starting_tag, ending_tag):
                 with open(output_path, "w") as fp:
                     nbformat.write(output_nb, fp)
                     
-            elif file.endswith('.py'):
+            elif file.endswith(('.py', '.R', '.r')):
+                # Python and R both use "#" comments, so tags are handled the same way
                 #click.echo(f'👀 Found file {file} in {root}')
                 with open(os.path.join(root, file)) as fp:
-                    original_py = fp.read()
-                caviarded_py = update_content(original_py, starting_tag, ending_tag)
+                    original_script = fp.read()
+                caviarded_script = update_content(original_script, starting_tag, ending_tag)
                 with open(output_path, "w") as fp:
-                    fp.write(caviarded_py)
+                    fp.write(caviarded_script)
                     
             elif file.endswith('.md'):
                 #click.echo(f'👀 Found file {file} in {root}')
